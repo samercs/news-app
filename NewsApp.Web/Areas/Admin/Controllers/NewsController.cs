@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Azure.NotificationHubs;
+using NewsApp.Web.Core.Services;
 using NewsApp.Web.Models;
 
 namespace NewsApp.Web.Areas.Admin.Controllers
@@ -14,6 +18,9 @@ namespace NewsApp.Web.Areas.Admin.Controllers
     public class NewsController : Controller
     {
         private ApplicationContext db = new ApplicationContext();
+        private readonly NotificationHubClient _notificationHubClient = NotificationHubClient.CreateClientFromConnectionString(
+                    ConfigurationManager.AppSettings["AzureNotificationHubConnectionString"],
+                    ConfigurationManager.AppSettings["AzureNotificationHubName"]);
 
         // GET: Admin/News1
         public ActionResult Index()
@@ -48,15 +55,16 @@ namespace NewsApp.Web.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create([Bind(Include = "NewsId,Title,Image,Description")] News news)
+        public async Task<ActionResult> Create([Bind(Include = "NewsId,Title,Image,Description")] News news)
         {
             if (ModelState.IsValid)
             {
                 db.Newses.Add(news);
                 db.SaveChanges();
+                var messageString = "{\"data\": {\"message\": \"New News Was Added\"} }";
+                var result = await _notificationHubClient.SendGcmNativeNotificationAsync(messageString);
                 return RedirectToAction("Index");
             }
-
             return View(news);
         }
 
