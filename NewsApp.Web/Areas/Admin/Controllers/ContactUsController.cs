@@ -6,10 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using NewsApp.Web.Core.Identity;
 using NewsApp.Web.Models;
 
 namespace NewsApp.Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class ContactUsController : Controller
     {
         private ApplicationContext db = new ApplicationContext();

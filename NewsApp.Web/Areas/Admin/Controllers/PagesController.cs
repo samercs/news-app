@@ -10,6 +10,7 @@ using NewsApp.Web.Models;
 
 namespace NewsApp.Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class PagesController : Controller
     {
         private ApplicationContext db = new ApplicationContext();
