@@ -20,7 +20,7 @@ namespace NewsApp.Web.Controllers
         [Route("")]
         public async Task<IHttpActionResult> Get()
         {
-            var news = _context.Newses.OrderByDescending(i => i.NewsId).ToList();
+            var news = _context.Newses.OrderByDescending(i => i.NewsId).Take(20).ToList();
             if (!User.Identity.IsAuthenticated)
             {
                 return Ok(news.Select(NewsModel.Create));
