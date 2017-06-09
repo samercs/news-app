@@ -19,5 +19,21 @@ namespace NewsApp.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Application_BeginRequest()
+        {
+            if (Request.Headers.AllKeys.Contains("Origin") && Request.HttpMethod == "OPTIONS")
+            {
+                Response.Flush();
+                Response.End();
+            }
+        }
+
+        protected void Application_PreSendRequestHeaders()
+        {
+            Response.Headers.Remove("Server");
+            Response.Headers.Remove("X-AspNet-Version");
+            Response.Headers.Remove("X-AspNetMvc-Version");
+        }
     }
 }

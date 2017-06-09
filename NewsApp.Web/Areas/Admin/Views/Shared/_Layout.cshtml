@@ -1,0 +1,12 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@RenderBody()
+
+@section scripts
+{
+    <script src="https://cdn.ckeditor.com/4.7.0/standard/ckeditor.js"></script>
+    @RenderSection("scripts", false)
+
+}

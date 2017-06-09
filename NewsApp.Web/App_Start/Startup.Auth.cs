@@ -4,6 +4,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
+using Microsoft.Owin.Security.OAuth;
+using NewsApp.Web.Core.Provider;
 using Owin;
 using NewsApp.Web.Models;
 
@@ -15,7 +17,7 @@ namespace NewsApp.Web
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext(ApplicationContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
@@ -34,7 +36,18 @@ namespace NewsApp.Web
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
+
+            app.UseOAuthBearerTokens(new OAuthAuthorizationServerOptions
+            {
+#if DEBUG
+                AllowInsecureHttp = true,
+#endif
+                TokenEndpointPath = new PathString("/api/token"),
+                Provider = new ApplicationOAuthProvider("self"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(365)
+            });
+
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.

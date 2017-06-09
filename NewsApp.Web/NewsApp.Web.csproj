@@ -198,15 +198,70 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ContactUsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\IssuesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PagesController.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
+    <Compile Include="Controllers\AccountApiController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ContactApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IssueApiController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NewsApiController.cs" />
+    <Compile Include="Core\Identity\RoleManager.cs" />
+    <Compile Include="Core\Identity\Roles.cs" />
+    <Compile Include="Core\Identity\UserManager.cs" />
+    <Compile Include="Core\Identity\UserService.cs" />
+    <Compile Include="Core\Provider\ApplicationOAuthProvider.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706091034059_Init-Migration.cs" />
+    <Compile Include="Migrations\201706091034059_Init-Migration.Designer.cs">
+      <DependentUpon>201706091034059_Init-Migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706091037419_AddAspNetAdminRole.cs" />
+    <Compile Include="Migrations\201706091037419_AddAspNetAdminRole.Designer.cs">
+      <DependentUpon>201706091037419_AddAspNetAdminRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706091040410_AddUsersField.cs" />
+    <Compile Include="Migrations\201706091040410_AddUsersField.Designer.cs">
+      <DependentUpon>201706091040410_AddUsersField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706091125093_AddPages.cs" />
+    <Compile Include="Migrations\201706091125093_AddPages.Designer.cs">
+      <DependentUpon>201706091125093_AddPages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706091146258_AddUserFavorites.cs" />
+    <Compile Include="Migrations\201706091146258_AddUserFavorites.Designer.cs">
+      <DependentUpon>201706091146258_AddUserFavorites.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706091153362_AddContactUs.cs" />
+    <Compile Include="Migrations\201706091153362_AddContactUs.Designer.cs">
+      <DependentUpon>201706091153362_AddContactUs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706091815329_AddEmailToContact.cs" />
+    <Compile Include="Migrations\201706091815329_AddEmailToContact.Designer.cs">
+      <DependentUpon>201706091815329_AddEmailToContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706091840506_AddIssues.cs" />
+    <Compile Include="Migrations\201706091840506_AddIssues.Designer.cs">
+      <DependentUpon>201706091840506_AddIssues.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Api\NewsModel.cs" />
+    <Compile Include="Models\ApplicationContext.cs" />
+    <Compile Include="Models\ContactUs.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Issue.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\News.cs" />
+    <Compile Include="Models\Page.cs" />
+    <Compile Include="Models\UserFavorite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -222,6 +277,29 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Pages\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Pages\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Pages\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Pages\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Pages\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ContactUs\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ContactUs\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ContactUs\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ContactUs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ContactUs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Issues\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Issues\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Issues\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Issues\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Issues\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -270,6 +348,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -285,6 +364,32 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201706091034059_Init-Migration.resx">
+      <DependentUpon>201706091034059_Init-Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706091037419_AddAspNetAdminRole.resx">
+      <DependentUpon>201706091037419_AddAspNetAdminRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706091040410_AddUsersField.resx">
+      <DependentUpon>201706091040410_AddUsersField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706091125093_AddPages.resx">
+      <DependentUpon>201706091125093_AddPages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706091146258_AddUserFavorites.resx">
+      <DependentUpon>201706091146258_AddUserFavorites.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706091153362_AddContactUs.resx">
+      <DependentUpon>201706091153362_AddContactUs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706091815329_AddEmailToContact.resx">
+      <DependentUpon>201706091815329_AddEmailToContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706091840506_AddIssues.resx">
+      <DependentUpon>201706091840506_AddIssues.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
