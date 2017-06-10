@@ -25,7 +25,7 @@ namespace NewsApp.Web.Areas.Admin.Controllers
         // GET: Admin/News1
         public ActionResult Index()
         {
-            return View(db.Newses.ToList());
+            return View(db.Newses.OrderByDescending(i => i.NewsId).ToList());
         }
 
         // GET: Admin/News1/Details/5
